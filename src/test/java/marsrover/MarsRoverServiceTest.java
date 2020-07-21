@@ -188,4 +188,16 @@ public class MarsRoverServiceTest {
         assertThat(marsRoverPosition.getDirectionShortName(), is("E"));
     }
 
+    @Test
+    public void should_return_x_5_y_4_and_N_when_receive_MLLMRBMFMLRBF_command_give_mars_rover_with_init_place_x_5_y_5_E() {
+        MarsRover marsRover = new MarsRover(new MarsRoverPosition(5 ,5 , "E"));
+
+        marsRoverService = new MarsRoverService(marsRover);
+        MarsRoverPosition marsRoverPosition = marsRoverService.receive("MLLMRBMBFMLRBMLR");
+
+        assertThat(marsRoverPosition.getCoordinatesX(), is(5));
+        assertThat(marsRoverPosition.getCoordinatesY(), is(4));
+        assertThat(marsRoverPosition.getDirectionShortName(), is("N"));
+    }
+
 }
