@@ -26,8 +26,8 @@ public class CommandFactoryTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void should_throw_IllegalArgumentException_when_getCommands_give_short_name_K() {
-        commandFactory.getCommands("K");
+    public void should_throw_IllegalArgumentException_when_getCommands_give_short_name_A() {
+        commandFactory.getCommands("A");
     }
 
     @Test
@@ -43,5 +43,15 @@ public class CommandFactoryTest {
     @Test
     public void should_return_command_F_when_getCommands_give_short_name_F() {
         assertThat(commandFactory.getCommands("F"), is(Arrays.asList(Command.FAST)));
+    }
+
+    @Test
+    public void should_return_command_K_when_getCommands_give_short_name_BB() {
+        assertThat(commandFactory.getCommands("BB"), is(Arrays.asList(Command.KEEP)));
+    }
+
+    @Test
+    public void should_return_command_KB_when_getCommands_give_short_name_BBB() {
+        assertThat(commandFactory.getCommands("BBB"), is(Arrays.asList(Command.KEEP, Command.BACK)));
     }
 }
