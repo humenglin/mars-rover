@@ -5,8 +5,7 @@ public enum Command {
     TURN_LEFT("L"),
     TURN_RIGHT("R"),
     BACK("B"),
-    FAST("F"),
-    KEEP("K");
+    FAST("F");
 
     private String shortName;
 

@@ -7,7 +7,6 @@ import java.util.List;
 public class CommandFactory {
 
     public List<Command> getCommands(String commandsStr) {
-        commandsStr = commandsStr.replace("BB", "K");
         List<String> shortNames = Arrays.asList(commandsStr.split(""));
         List<Command> commands = new ArrayList<>();
         for (String shortName : shortNames) {

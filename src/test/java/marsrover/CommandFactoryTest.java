@@ -44,14 +44,4 @@ public class CommandFactoryTest {
     public void should_return_command_F_when_getCommands_give_short_name_F() {
         assertThat(commandFactory.getCommands("F"), is(Arrays.asList(Command.FAST)));
     }
-
-    @Test
-    public void should_return_command_K_when_getCommands_give_short_name_BB() {
-        assertThat(commandFactory.getCommands("BB"), is(Arrays.asList(Command.KEEP)));
-    }
-
-    @Test
-    public void should_return_command_KB_when_getCommands_give_short_name_BBB() {
-        assertThat(commandFactory.getCommands("BBB"), is(Arrays.asList(Command.KEEP, Command.BACK)));
-    }
 }

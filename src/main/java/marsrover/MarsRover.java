@@ -1,13 +1,16 @@
 package marsrover;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class MarsRover {
-
+    private boolean backFlag;
     private MarsRoverPosition marsRoverPosition;
     public MarsRover(MarsRoverPosition marsRoverPosition) {
         this.marsRoverPosition = marsRoverPosition;
+    }
+
+    public boolean isBackFlag() {
+        return backFlag;
     }
 
     public MarsRoverPosition getMarsRoverPosition() {
@@ -20,29 +23,15 @@ public class MarsRover {
     }
 
     private void receiveSingleCommand(Command command) {
-        if (Command.MOVE == command) {
-            String directionShortName = marsRoverPosition.direction.getShortName();
-            if (directionShortName.equals(Direction.NORTH.getShortName())) {
-                marsRoverPosition.coordinatesY++;
-            } else if (directionShortName.equals(Direction.EAST.getShortName())) {
-                marsRoverPosition.coordinatesX++;
-            } else if (directionShortName.equals(Direction.WEST.getShortName())) {
-                marsRoverPosition.coordinatesX--;
-            } else if (directionShortName.equals(Direction.SOUTH.getShortName())) {
-                marsRoverPosition.coordinatesY--;
-            }
+        if (Command.BACK == command) {
+            backFlag = backFlag ? false : true;
         }
 
-        if (Command.BACK == command) {
-            String directionShortName = marsRoverPosition.direction.getShortName();
-            if (directionShortName.equals(Direction.NORTH.getShortName())) {
-                marsRoverPosition.coordinatesY--;
-            } else if (directionShortName.equals(Direction.EAST.getShortName())) {
-                marsRoverPosition.coordinatesX--;
-            } else if (directionShortName.equals(Direction.WEST.getShortName())) {
-                marsRoverPosition.coordinatesX++;
-            } else if (directionShortName.equals(Direction.SOUTH.getShortName())) {
-                marsRoverPosition.coordinatesY++;
+        if (Command.MOVE == command) {
+            if (backFlag) {
+                controllerMoveCommandWIthBackFlag();
+            } else {
+                controllerMoveCommand();
             }
         }
 
@@ -54,5 +43,31 @@ public class MarsRover {
             marsRoverPosition.direction = marsRoverPosition.direction.rightDirection();
         }
 
+    }
+
+    private void controllerMoveCommand() {
+        String directionShortName = marsRoverPosition.direction.getShortName();
+        if (directionShortName.equals(Direction.NORTH.getShortName())) {
+            marsRoverPosition.coordinatesY++;
+        } else if (directionShortName.equals(Direction.EAST.getShortName())) {
+            marsRoverPosition.coordinatesX++;
+        } else if (directionShortName.equals(Direction.WEST.getShortName())) {
+            marsRoverPosition.coordinatesX--;
+        } else if (directionShortName.equals(Direction.SOUTH.getShortName())) {
+            marsRoverPosition.coordinatesY--;
+        }
+    }
+
+    private void controllerMoveCommandWIthBackFlag() {
+        String directionShortName = marsRoverPosition.direction.getShortName();
+        if (directionShortName.equals(Direction.NORTH.getShortName())) {
+            marsRoverPosition.coordinatesY--;
+        } else if (directionShortName.equals(Direction.EAST.getShortName())) {
+            marsRoverPosition.coordinatesX--;
+        } else if (directionShortName.equals(Direction.WEST.getShortName())) {
+            marsRoverPosition.coordinatesX++;
+        } else if (directionShortName.equals(Direction.SOUTH.getShortName())) {
+            marsRoverPosition.coordinatesY++;
+        }
     }
 }
