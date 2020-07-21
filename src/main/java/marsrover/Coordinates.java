@@ -1,8 +1,8 @@
 package marsrover;
 
 public class Coordinates {
-    private int coordinatesX;
-    private int coordinatesY;
+    int coordinatesX;
+    int coordinatesY;
 
     public Coordinates(int coordinatesX, int coordinatesY) {
         this.coordinatesX = coordinatesX;
@@ -17,15 +17,4 @@ public class Coordinates {
         return coordinatesY;
     }
 
-    public void moveToward(String directionShortName) {
-        if (directionShortName.equals(Direction.NORTH.getShortName())) {
-            this.coordinatesY++;
-        } else if (directionShortName.equals(Direction.EAST.getShortName())) {
-            this.coordinatesX++;
-        } else if (directionShortName.equals(Direction.WEST.getShortName())) {
-            this.coordinatesX--;
-        } else if (directionShortName.equals(Direction.SOUTH.getShortName())) {
-            this.coordinatesY--;
-        }
-    }
 }
