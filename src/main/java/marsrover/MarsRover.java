@@ -4,13 +4,19 @@ import java.util.List;
 
 public class MarsRover {
     private boolean backFlag;
+    private boolean fastFlag;
     private MarsRoverPosition marsRoverPosition;
+
     public MarsRover(MarsRoverPosition marsRoverPosition) {
         this.marsRoverPosition = marsRoverPosition;
     }
 
     public boolean isBackFlag() {
         return backFlag;
+    }
+
+    public boolean isFastFlag() {
+        return fastFlag;
     }
 
     public MarsRoverPosition getMarsRoverPosition() {
@@ -27,20 +33,40 @@ public class MarsRover {
             backFlag = backFlag ? false : true;
         }
 
+        if (Command.FAST == command) {
+            fastFlag = fastFlag ? false : true;
+        }
+
         if (Command.MOVE == command) {
-            if (backFlag) {
+            if (backFlag && !fastFlag) {
                 controllerMoveCommandWIthBackFlag();
+            } else if (!backFlag && fastFlag) {
+                controllerMoveCommandWIthFastFlag();
+            } else if (backFlag && fastFlag) {
+                controllerMoveCommandWIthBackAndFastFlag();
             } else {
                 controllerMoveCommand();
             }
         }
 
         if (Command.TURN_LEFT == command) {
-            marsRoverPosition.direction = marsRoverPosition.direction.leftDirection();
+            if (!backFlag && fastFlag) {
+                controllerTurnLeftCommandWIthFastFlag();
+            } else if (backFlag && fastFlag) {
+                controllerTurnLeftCommandWIthBackAndFastFlag();
+            } else {
+                controllerTurnLeftCommand();
+            }
         }
 
         if (Command.TURN_RIGHT == command) {
-            marsRoverPosition.direction = marsRoverPosition.direction.rightDirection();
+            if (!backFlag && fastFlag) {
+                controllerTurnRightCommandWIthFastFlag();
+            } else if (backFlag && fastFlag) {
+                controllerTurnRightCommandWIthBackAndFastFlag();
+            } else {
+                controllerTurnRightCommand();
+            }
         }
 
     }
@@ -69,5 +95,43 @@ public class MarsRover {
         } else if (directionShortName.equals(Direction.SOUTH.getShortName())) {
             marsRoverPosition.coordinatesY++;
         }
+    }
+
+    private void controllerMoveCommandWIthFastFlag() {
+        controllerMoveCommand();
+        controllerMoveCommand();
+    }
+
+    private void controllerMoveCommandWIthBackAndFastFlag() {
+        controllerMoveCommandWIthBackFlag();
+        controllerMoveCommandWIthBackFlag();
+    }
+
+    private void controllerTurnLeftCommand() {
+        marsRoverPosition.direction = marsRoverPosition.direction.leftDirection();
+    }
+
+    private void controllerTurnLeftCommandWIthFastFlag() {
+        controllerMoveCommand();
+        controllerTurnLeftCommand();
+    }
+
+    private void controllerTurnLeftCommandWIthBackAndFastFlag() {
+        controllerMoveCommandWIthBackFlag();
+        controllerTurnLeftCommand();
+    }
+
+    private void controllerTurnRightCommand() {
+        marsRoverPosition.direction = marsRoverPosition.direction.rightDirection();
+    }
+
+    private void controllerTurnRightCommandWIthFastFlag() {
+        controllerMoveCommand();
+        controllerTurnRightCommand();
+    }
+
+    private void controllerTurnRightCommandWIthBackAndFastFlag() {
+        controllerMoveCommandWIthBackFlag();
+        controllerTurnRightCommand();
     }
 }
