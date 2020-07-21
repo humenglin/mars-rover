@@ -39,4 +39,37 @@ public class MarsRoverTest {
         assertThat(marsRoverPosition.getDirectionShortName(), is("N"));
     }
 
+    @Test
+    public void should_return_x_0_y_1_and_N_when_receive_M_command_give_mars_rover_with_init_place_x_0_y_0_N() {
+        MarsRover marsRover = new MarsRover(new MarsRoverPosition(0 ,0 , "N"));
+
+        MarsRoverPosition marsRoverPosition = marsRover.receive("M");
+
+        assertThat(marsRoverPosition.getCoordinatesX(), is(0));
+        assertThat(marsRoverPosition.getCoordinatesY(), is(1));
+        assertThat(marsRoverPosition.getDirectionShortName(), is("N"));
+    }
+
+    @Test
+    public void should_return_x_0_y_0_and_W_when_receive_L_command_give_mars_rover_with_init_place_x_0_y_0_N() {
+        MarsRover marsRover = new MarsRover(new MarsRoverPosition(0 ,0 , "N"));
+
+        MarsRoverPosition marsRoverPosition = marsRover.receive("L");
+
+        assertThat(marsRoverPosition.getCoordinatesX(), is(0));
+        assertThat(marsRoverPosition.getCoordinatesY(), is(0));
+        assertThat(marsRoverPosition.getDirectionShortName(), is("W"));
+    }
+
+    @Test
+    public void should_return_x_0_y_0_and_E_when_receive_R_command_give_mars_rover_with_init_place_x_0_y_0_N() {
+        MarsRover marsRover = new MarsRover(new MarsRoverPosition(0 ,0 , "N"));
+
+        MarsRoverPosition marsRoverPosition = marsRover.receive("R");
+
+        assertThat(marsRoverPosition.getCoordinatesX(), is(0));
+        assertThat(marsRoverPosition.getCoordinatesY(), is(0));
+        assertThat(marsRoverPosition.getDirectionShortName(), is("E"));
+    }
+
 }
