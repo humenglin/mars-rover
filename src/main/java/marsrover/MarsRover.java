@@ -1,6 +1,7 @@
 package marsrover;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class MarsRover {
 
@@ -13,13 +14,13 @@ public class MarsRover {
         return marsRoverPosition;
     }
 
-    public MarsRoverPosition receive(String commands) {
-        Arrays.asList(commands.split("")).forEach(this::receiveSingleCommand);
+    public MarsRoverPosition receive(List<Command> commands) {
+        commands.forEach(this::receiveSingleCommand);
         return getMarsRoverPosition();
     }
 
-    private void receiveSingleCommand(String command) {
-        if (Command.MOVE.getShortName().equals(command)) {
+    private void receiveSingleCommand(Command command) {
+        if (Command.MOVE == command) {
             String directionShortName = marsRoverPosition.direction.getShortName();
             if (directionShortName.equals(Direction.NORTH.getShortName())) {
                 marsRoverPosition.coordinatesY++;
@@ -31,10 +32,10 @@ public class MarsRover {
                 marsRoverPosition.coordinatesY--;
             }
         }
-        if (Command.TURN_LEFT.getShortName().equals(command)) {
+        if (Command.TURN_LEFT == command) {
             marsRoverPosition.direction = marsRoverPosition.direction.leftDirection();
         }
-        if (Command.TURN_RIGHT.getShortName().equals(command)) {
+        if (Command.TURN_RIGHT == command) {
             marsRoverPosition.direction = marsRoverPosition.direction.rightDirection();
         }
 
