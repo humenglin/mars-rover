@@ -162,7 +162,7 @@ public class MarsRoverTest {
     public void should_return_x_0_y_2_and_N_and_fast_is_true_when_receive_FM_command_give_mars_rover_with_init_place_x_0_y_0_N() {
         MarsRover marsRover = new MarsRover(new MarsRoverPosition(0 ,0 , "N"));
 
-        List<Command> commands = Arrays.asList(Command.FAST, Command.MOVE, Command.FAST);
+        List<Command> commands = Arrays.asList(Command.FAST, Command.MOVE);
         MarsRoverPosition marsRoverPosition = marsRover.receive(commands);
 
         assertThat(marsRoverPosition.getCoordinatesX(), is(0));
@@ -175,7 +175,7 @@ public class MarsRoverTest {
     public void should_return_x_0_y_1_and_W_and_fast_is_true_when_receive_FL_command_give_mars_rover_with_init_place_x_0_y_0_N() {
         MarsRover marsRover = new MarsRover(new MarsRoverPosition(0 ,0 , "N"));
 
-        List<Command> commands = Arrays.asList(Command.FAST, Command.TURN_LEFT, Command.FAST);
+        List<Command> commands = Arrays.asList(Command.FAST, Command.TURN_LEFT);
         MarsRoverPosition marsRoverPosition = marsRover.receive(commands);
 
         assertThat(marsRoverPosition.getCoordinatesX(), is(0));
@@ -188,7 +188,7 @@ public class MarsRoverTest {
     public void should_return_x_0_y_1_and_E_and_fast_is_true_when_receive_FR_command_give_mars_rover_with_init_place_x_0_y_0_N() {
         MarsRover marsRover = new MarsRover(new MarsRoverPosition(0 ,0 , "N"));
 
-        List<Command> commands = Arrays.asList(Command.FAST, Command.TURN_RIGHT, Command.FAST);
+        List<Command> commands = Arrays.asList(Command.FAST, Command.TURN_RIGHT);
         MarsRoverPosition marsRoverPosition = marsRover.receive(commands);
 
         assertThat(marsRoverPosition.getCoordinatesX(), is(0));
@@ -249,4 +249,59 @@ public class MarsRoverTest {
         assertThat(marsRover.isFastFlag(), is(false));
     }
 
+    @Test
+    public void should_return_x_2_y_0_and_N_and_back_is_true_and_fast_is_true_when_receive_BFM_command_give_mars_rover_with_init_place_x_2_y_2_N() {
+        MarsRover marsRover = new MarsRover(new MarsRoverPosition(2 ,2 , "N"));
+
+        List<Command> commands = Arrays.asList(Command.BACK, Command.FAST, Command.MOVE);
+        MarsRoverPosition marsRoverPosition = marsRover.receive(commands);
+
+        assertThat(marsRoverPosition.getCoordinatesX(), is(2));
+        assertThat(marsRoverPosition.getCoordinatesY(), is(0));
+        assertThat(marsRoverPosition.getDirectionShortName(), is("N"));
+        assertThat(marsRover.isBackFlag(), is(true));
+        assertThat(marsRover.isFastFlag(), is(true));
+    }
+
+    @Test
+    public void should_return_x_1_y_0_and_W_and_back_is_true_and_fast_is_true_when_receive_BFL_command_give_mars_rover_with_init_place_x_1_y_1_N() {
+        MarsRover marsRover = new MarsRover(new MarsRoverPosition(1 ,1 , "N"));
+
+        List<Command> commands = Arrays.asList(Command.BACK, Command.FAST, Command.TURN_LEFT);
+        MarsRoverPosition marsRoverPosition = marsRover.receive(commands);
+
+        assertThat(marsRoverPosition.getCoordinatesX(), is(1));
+        assertThat(marsRoverPosition.getCoordinatesY(), is(0));
+        assertThat(marsRoverPosition.getDirectionShortName(), is("W"));
+        assertThat(marsRover.isBackFlag(), is(true));
+        assertThat(marsRover.isFastFlag(), is(true));
+    }
+
+    @Test
+    public void should_return_x_0_y_1_and_E_and_back_is_true_and_fast_is_true_when_receive_BFR_command_give_mars_rover_with_init_place_x_1_y_1_N() {
+        MarsRover marsRover = new MarsRover(new MarsRoverPosition(1 ,1 , "N"));
+
+        List<Command> commands = Arrays.asList(Command.BACK, Command.FAST, Command.TURN_RIGHT);
+        MarsRoverPosition marsRoverPosition = marsRover.receive(commands);
+
+        assertThat(marsRoverPosition.getCoordinatesX(), is(1));
+        assertThat(marsRoverPosition.getCoordinatesY(), is(0));
+        assertThat(marsRoverPosition.getDirectionShortName(), is("E"));
+        assertThat(marsRover.isBackFlag(), is(true));
+        assertThat(marsRover.isFastFlag(), is(true));
+    }
+
+    @Test
+    public void should_return_x_0_y_1_and_E_and_back_is_false_and_fast_is_false_when_receive_BFRBF_command_give_mars_rover_with_init_place_x_1_y_1_N() {
+        MarsRover marsRover = new MarsRover(new MarsRoverPosition(1 ,1 , "N"));
+
+        List<Command> commands = Arrays.asList(Command.BACK, Command.FAST, Command.TURN_RIGHT, Command.BACK, Command.FAST);
+        MarsRoverPosition marsRoverPosition = marsRover.receive(commands);
+
+        assertThat(marsRoverPosition.getCoordinatesX(), is(1));
+        assertThat(marsRoverPosition.getCoordinatesY(), is(0));
+        assertThat(marsRoverPosition.getDirectionShortName(), is("E"));
+        assertThat(marsRover.isBackFlag(), is(false));
+        assertThat(marsRover.isFastFlag(), is(false));
+    }
 }
